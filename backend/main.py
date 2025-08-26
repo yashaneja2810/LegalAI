@@ -25,10 +25,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # In-memory user-doc tracking for demo (replace with DB in prod)
 user_docs = {}
