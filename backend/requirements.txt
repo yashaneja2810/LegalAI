@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+langchain
+sentence-transformers
+python-dotenv
+pydantic
+langchain-google-genai
+numpy

@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.animate-logo-spin {
+  animation: logo-spin 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes logo-spin {
+  0% { transform: rotate(-8deg) scale(1); }
+  50% { transform: rotate(8deg) scale(1.04); }
+  100% { transform: rotate(-8deg) scale(1); }
+}
+
+body {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #2563eb 100%);
+  color: #e0e7ef;
+}
+
+.glassy {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px) saturate(120%);
+  border-radius: 1.5rem;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border-radius: 8px;
+}
