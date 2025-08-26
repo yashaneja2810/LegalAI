@@ -20,14 +20,11 @@ app = FastAPI(title="Legal Document AI Backend")
 # Allow CORS for frontend - MUST be at the top
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://legal-ai-gules.vercel.app"],
+    allow_origins=["https://legal-ai-gules.vercel.app", "http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["*"]
 )
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -204,3 +201,8 @@ async def chat(doc_id: str = Form(...), user_id: str = Form(...), question: str 
         for chunk in chunks:
             matched_chunks.append({'text': chunk.strip(), 'page': 1})
     return {"answer": answer, "matched_chunks": matched_chunks}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
