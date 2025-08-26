@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Use hardcoded values to avoid environment variable issues
-const supabaseUrl = 'https://ksvsugdzdbgetnewzmej.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtzdnN1Z2R6ZGJnZXRuZXd6bWVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxOTE2OTgsImV4cCI6MjA3MTc2NzY5OH0.Mq8hnbj4CJ7WGLbb_jkJN8jhqRu-XHLsUyUPBYgIylA';
+// Use environment variables to avoid hardcoded values
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Debug logging for environment variables
 if (typeof window !== 'undefined') {
@@ -15,6 +15,7 @@ if (!supabaseUrl || !supabaseKey) {
   console.error('Missing Supabase environment variables');
   console.error('NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl);
   console.error('NEXT_PUBLIC_SUPABASE_ANON_KEY exists:', !!supabaseKey);
+  throw new Error('Missing required Supabase environment variables');
 }
 
 export const supabase = createClient(supabaseUrl, supabaseKey, {
