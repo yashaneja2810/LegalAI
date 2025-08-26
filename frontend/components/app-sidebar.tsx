@@ -3,7 +3,6 @@
 import type * as React from "react"
 import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
-import { useAuth } from "@/lib/auth-context"
 import {
   LayoutDashboard,
   Workflow,
@@ -44,6 +43,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
+import { useAuth } from "../hooks/useAuth"
 
 // Navigation items for the sidebar
 const navigationItems = [

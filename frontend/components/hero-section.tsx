@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import TrueFocus from "@/app/components/TrueFocus/TrueFocus";
+import TrueFocus from "@/components/TrueFocus";
 import { Baskervville, Montserrat } from "next/font/google";
 import { cn } from "@/lib/utils";
-import TextRotate from "@/fancy/components/text/text-rotate";
 import { FlipWords } from "./ui/flip-words";
 
 const baskervville = Baskervville({

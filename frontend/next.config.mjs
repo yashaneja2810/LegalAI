@@ -11,17 +11,18 @@ const nextConfig = {
   },
   webpack: (config, { isServer }) => {
     // Fix for pino-pretty and other optional dependencies
+    // Don't disable crypto, http, https for Supabase to work
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
       net: false,
       tls: false,
-      crypto: false,
+      // crypto: false, // Keep crypto enabled for Supabase
       stream: false,
-      url: false,
+      // url: false, // Keep url enabled for Supabase
       zlib: false,
-      http: false,
-      https: false,
+      // http: false, // Keep http enabled for Supabase
+      // https: false, // Keep https enabled for Supabase
       assert: false,
       os: false,
       path: false,

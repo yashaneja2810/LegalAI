@@ -1,13 +1,13 @@
 "use client"
 
-import { useAuth } from "@/lib/auth-context"
+import { useAuth } from "../hooks/useAuth"
 import Header from "@/components/header"
 import { AppSidebar } from "@/components/app-sidebar"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { usePathname } from "next/navigation"
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
-  const { user, isLoading } = useAuth()
+  const { user, loading } = useAuth()
   const pathname = usePathname()
   console.log(pathname)
   // Check if we're on a page that should show the sidebar
@@ -23,7 +23,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
     "/signup"
   ].includes(pathname)
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen legal-bg-primary flex items-center justify-center">
         <div className="text-center">

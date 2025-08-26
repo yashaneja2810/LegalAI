@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, signOut } from '../lib/supabase';
 import { User } from '../types';
 
 export const useAuth = () => {
@@ -38,5 +38,13 @@ export const useAuth = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  return { user, loading };
+  const logout = async () => {
+    const { error } = await signOut();
+    if (!error) {
+      setUser(null);
+    }
+    return { error };
+  };
+
+  return { user, loading, logout };
 };

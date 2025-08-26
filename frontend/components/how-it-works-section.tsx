@@ -1,7 +1,7 @@
 import { Scale, FileText, Phone, Users, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import { Baskervville, Montserrat } from "next/font/google";
-import CountUp from "@/app/components/CountUp/CountUp";
+import CountUp from "./CountUp";
 
 const baskervville = Baskervville({
   subsets: ["latin"],
