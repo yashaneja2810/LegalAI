@@ -9,7 +9,6 @@ import {
   Menu,
   X,
   Scale,
-  User,
   LogOut,
   LayoutDashboard,
   Workflow,
@@ -37,13 +36,18 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     router.push("/");
   };
 
-  const handleUpgradeAccount = () => {
-    router.push("/signup?upgrade=true");
+  const getUserInitials = () => {
+    if (!user) return "U";
+    const nameParts = user.name.split(' ');
+    if (nameParts.length >= 2) {
+      return `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase();
+    }
+    return user.name[0]?.toUpperCase() || "U";
   };
 
   // Navigation items for authenticated users
@@ -190,17 +194,17 @@ export default function Header() {
                     className="flex items-center space-x-2 h-9"
                   >
                     <div className="w-7 h-7 legal-icon-bg rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-white" />
+                      <span className="text-white text-sm font-medium">
+                        {getUserInitials()}
+                      </span>
                     </div>
                     <div className="flex flex-col items-start">
                       <span className="text-sm font-medium text-legal-primary">
-                        Ronit Raj
+                        {user.name}
                       </span>
-                      {user.isGuest && (
-                        <span className="text-xs text-legal-accent">
-                          ronitk964@gmail.com
-                        </span>
-                      )}
+                      <span className="text-xs text-legal-accent">
+                        {user.email}
+                      </span>
                     </div>
                     <ChevronDown className="w-4 h-4" />
                   </Button>
@@ -208,16 +212,11 @@ export default function Header() {
                 <DropdownMenuContent align="end" className="w-64">
                   <div className="px-3 py-2 border-b border-legal-border">
                     <p className="text-sm font-medium text-legal-primary">
-                      Ronit Raj
+                      {user.name}
                     </p>
                     <p className="text-xs text-legal-secondary">
-                      {user.email || "ronitk964@gmail.com"}
+                      {user.email}
                     </p>
-                    {user.isGuest && (
-                      <div className="mt-1">
-                        <span className="legal-badge">Guest Session</span>
-                      </div>
-                    )}
                   </div>
 
                   <DropdownMenuItem asChild>
@@ -227,28 +226,12 @@ export default function Header() {
                     </Link>
                   </DropdownMenuItem>
 
-                  {!user.isGuest && (
-                    <DropdownMenuItem asChild>
-                      <Link href="/settings" className="cursor-pointer">
-                        <Settings className="w-4 h-4 mr-2" />
-                        Settings
-                      </Link>
-                    </DropdownMenuItem>
-                  )}
-
-                  {user.isGuest && (
-                    <>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        onClick={handleUpgradeAccount}
-                        className="cursor-pointer"
-                      >
-                        <span className="text-legal-accent font-medium">
-                          ⭐ Upgrade Account
-                        </span>
-                      </DropdownMenuItem>
-                    </>
-                  )}
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="cursor-pointer">
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </Link>
+                  </DropdownMenuItem>
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
@@ -256,7 +239,7 @@ export default function Header() {
                     className="cursor-pointer text-destructive"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
-                    {user.isGuest ? "End Session" : "Logout"}
+                    Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -355,29 +338,19 @@ export default function Header() {
                   <>
                     <div className="flex items-center space-x-3 px-3 py-2 bg-legal-beige rounded-lg">
                       <div className="w-8 h-8 legal-icon-bg rounded-full flex items-center justify-center">
-                        <User className="w-4 h-4 text-white" />
+                        <span className="text-white text-sm font-medium">
+                          {getUserInitials()}
+                        </span>
                       </div>
                       <div>
                         <div className="text-sm font-medium text-legal-primary">
-                          Ronit Raj
+                          {user.name}
                         </div>
                         <div className="text-xs text-legal-secondary">
-                          {user.email || "ronitk964@gmail.com"}
+                          {user.email}
                         </div>
-                        {user.isGuest && (
-                          <span className="legal-badge mt-1">Ronit Raj</span>
-                        )}
                       </div>
                     </div>
-
-                    {user.isGuest && (
-                      <Button
-                        onClick={handleUpgradeAccount}
-                        className="btn-legal-primary justify-start"
-                      >
-                        ⭐ Upgrade Account
-                      </Button>
-                    )}
 
                     <Button
                       onClick={handleLogout}
@@ -385,7 +358,7 @@ export default function Header() {
                       className="justify-start text-destructive"
                     >
                       <LogOut className="w-4 h-4 mr-2" />
-                      {user.isGuest ? "End Session" : "Logout"}
+                      Logout
                     </Button>
                   </>
                 ) : (

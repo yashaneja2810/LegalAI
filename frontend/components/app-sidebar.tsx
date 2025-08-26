@@ -14,7 +14,6 @@ import {
   HelpCircle,
   LogOut,
   Scale,
-  Crown,
   ChevronUp,
   PanelLeft,
   Hash,
@@ -132,19 +131,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const router = useRouter()
   const pathname = usePathname()
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
     router.push("/")
-  }
-
-  const handleUpgradeAccount = () => {
-    router.push("/signup?upgrade=true")
   }
 
   const getUserInitials = () => {
     if (!user) return "U"
-    if (user.isGuest) return "G"
-    return `${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`.toUpperCase() || "U"
+    const nameParts = user.name.split(' ')
+    if (nameParts.length >= 2) {
+      return `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase()
+    }
+    return user.name[0]?.toUpperCase() || "U"
   }
 
   const isActivePage = (url: string) => {
@@ -223,8 +221,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   >
                     <Avatar className="h-8 w-8 rounded-lg">
                       <AvatarImage
-                        src="/placeholder.svg"
-                        alt={`${user.firstName} ${user.lastName}`}
+                        src={user.avatar_url || "/placeholder.svg"}
+                        alt={user.name}
                       />
                       <AvatarFallback className="rounded-lg legal-icon-bg text-white">
                         {getUserInitials()}
@@ -232,13 +230,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-playfair font-semibold text-legal-dark-text">
-                        {user.isGuest ? "Guest User" : `${user.firstName} ${user.lastName}`}
+                        {user.name}
                       </span>
                       <span className="truncate text-xs text-legal-secondary">
-                        {user.isGuest ? "Guest Mode" : user.email}
+                        {user.email}
                       </span>
                     </div>
-                    {user.isGuest && <Crown className="size-4 text-warning" />}
                     <ChevronUp className="ml-auto size-4 text-legal-secondary" />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
@@ -252,8 +249,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <div className="flex items-center space-x-3">
                       <Avatar className="h-10 w-10">
                         <AvatarImage
-                          src="/placeholder.svg"
-                          alt={`${user.firstName} ${user.lastName}`}
+                          src={user.avatar_url || "/placeholder.svg"}
+                          alt={user.name}
                         />
                         <AvatarFallback className="legal-icon-bg text-white">
                           {getUserInitials()}
@@ -261,22 +258,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </Avatar>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-legal-dark-text truncate">
-                          {user.isGuest ? "Guest User" : `${user.firstName} ${user.lastName}`}
+                          {user.name}
                         </p>
                         <p className="text-xs text-legal-secondary truncate">
-                          {user.isGuest ? "Temporary Session" : user.email}
+                          {user.email}
                         </p>
-                        {user.isGuest && (
-                          <div className="mt-1">
-                            <span className="legal-badge">
-                              <Crown className="w-3 h-3 mr-1" />
-                              Guest Mode
-                            </span>
-                          </div>
-                        )}
-                        {user.companyName && (
-                          <p className="text-xs text-legal-secondary truncate mt-1">{user.companyName}</p>
-                        )}
                       </div>
                     </div>
                   </div>
@@ -288,37 +274,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </Link>
                   </DropdownMenuItem>
 
-                  {!user.isGuest && (
-                    <>
-                      <DropdownMenuItem asChild>
-                        <Link href="/settings" className="cursor-pointer text-legal-dark-text hover:text-legal-dark-text">
-                          <Settings className="size-4 mr-2" />
-                          Account Settings
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <Link href="/billing" className="cursor-pointer text-legal-dark-text hover:text-legal-dark-text">
-                          <CreditCard className="size-4 mr-2" />
-                          Billing & Plans
-                        </Link>
-                      </DropdownMenuItem>
-                    </>
-                  )}
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="cursor-pointer text-legal-dark-text hover:text-legal-dark-text">
+                      <Settings className="size-4 mr-2" />
+                      Account Settings
+                    </Link>
+                  </DropdownMenuItem>
 
-                  {user.isGuest && (
-                    <>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={handleUpgradeAccount} className="cursor-pointer">
-                        <Crown className="size-4 mr-2 text-warning" />
-                        <span className="text-legal-accent font-medium">Upgrade to Full Account</span>
-                      </DropdownMenuItem>
-                    </>
-                  )}
+                  <DropdownMenuItem asChild>
+                    <Link href="/billing" className="cursor-pointer text-legal-dark-text hover:text-legal-dark-text">
+                      <CreditCard className="size-4 mr-2" />
+                      Billing & Plans
+                    </Link>
+                  </DropdownMenuItem>
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive">
                     <LogOut className="size-4 mr-2" />
-                    {user.isGuest ? "End Guest Session" : "Sign Out"}
+                    Sign Out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
