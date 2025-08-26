@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google Fonts for Legal Theme */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@layer base {
+  :root {
+    /* Legal Theme Color Palette */
+    --legal-bg-primary: #F8F3EE;           /* Warm cream background */
+    --legal-bg-secondary: #E8DDD1;         /* Light beige for cards */
+    --legal-dark-text: #2A2A2A;            /* Dark charcoal for headings */
+    --legal-secondary: #8B7355;            /* Warm brown for secondary text */
+    --legal-accent: #8B4513;               /* Rich brown for accents */
+    --legal-brown: #8B4513;                /* Primary brown */
+    --legal-border: #D1C4B8;               /* Soft brown borders */
+    --legal-gold: #D4AF37;                 /* Gold highlights */
+    --legal-beige: #E8DDD1;                /* Same as secondary bg */
+    --legal-warm-text: #8B7355;            /* Same as secondary text */
+
+    /* Semantic Colors */
+    --background: var(--legal-bg-primary);
+    --foreground: var(--legal-dark-text);
+    --card: var(--legal-bg-secondary);
+    --card-foreground: var(--legal-dark-text);
+    --popover: var(--legal-bg-secondary);
+    --popover-foreground: var(--legal-dark-text);
+    --primary: var(--legal-brown);
+    --primary-foreground: #FFFFFF;
+    --secondary: var(--legal-bg-secondary);
+    --secondary-foreground: var(--legal-dark-text);
+    --muted: var(--legal-bg-secondary);
+    --muted-foreground: var(--legal-secondary);
+    --accent: var(--legal-accent);
+    --accent-foreground: #FFFFFF;
+    --destructive: #DC2626;
+    --destructive-foreground: #FFFFFF;
+    --border: var(--legal-border);
+    --input: var(--legal-bg-secondary);
+    --ring: var(--legal-accent);
+    --radius: 0.75rem;
+
+    /* Success/Warning/Error Colors */
+    --success: #059669;
+    --warning: #D97706;
+    --error: #DC2626;
+    --info: #0284C7;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-serif;
+    /* font-family: "Playfair Display", "Georgia", serif; */
+  }
+}
+/* .font-montserrat{
+  font-family: var(--font-montserrat);
+}
+.font-baskervville{
+  font-family: var(--font-baskervville);
+} */
+.font-montserrat{
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.font-baskervville {
+  font-family: "Baskervville", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Legal Theme Custom Styles */
+.legal-gradient-bg {
+  background: linear-gradient(135deg, hsl(var(--legal-cream)) 0%, hsl(var(--legal-beige)) 50%, hsl(var(--legal-warm-white)) 100%);
+}
+
+.legal-card-bg {
+  background: hsl(var(--legal-warm-white));
+  border: 1px solid hsl(var(--legal-border));
+  box-shadow: 0 4px 6px -1px rgba(139, 69, 19, 0.1), 0 2px 4px -1px rgba(139, 69, 19, 0.06);
+}
+
+.legal-section-bg {
+  @apply bg-white dark:bg-[#0d1117];
+}
+
+/* Enhanced Button Styles for Legal Theme */
+.btn-legal-primary {
+  @apply bg-amber-700 hover:bg-amber-800 text-white dark:bg-amber-800 dark:hover:bg-amber-700 shadow-lg hover:shadow-xl transition-all duration-300 border-0 px-8 py-3;
+}
+
+.btn-legal-secondary {
+  @apply bg-white hover:bg-amber-50 text-black border border-amber-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white dark:border-amber-800 shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg px-8 py-3;
+}
+
+.btn-legal-outline {
+  @apply border-2 border-amber-600 text-amber-700 hover:bg-amber-50 hover:border-amber-700 font-semibold transition-all duration-300 bg-white/50 rounded-lg px-6 py-2;
+}
+
+/* Legal Professional Cards */
+.legal-feature-card {
+  @apply bg-white dark:bg-gray-800/50 rounded-xl p-6 border border-amber-200 dark:border-amber-800 shadow-lg;
+}
+@layer utilities {
+  .clip-inward-rounded {
+    clip-path: path("M20,0 H244 C260,0 260,48 244,48 H20 C4,48 4,0 20,0 Z");
+  }
+}
+.legal-professional-card {
+  @apply bg-white dark:bg-gray-800/50 rounded-xl p-6 border border-amber-200 dark:border-amber-800 shadow-lg hover:shadow-xl transition-all duration-300;
+}
+
+/* Legal Icon Styles */
+.legal-icon-bg {
+  @apply bg-amber-700 dark:bg-amber-800;
+}
+
+/* Legal Typography */
+.legal-heading {
+  @apply text-black dark:text-white font-bold;
+  font-family: "Baskervville", "Georgia", serif;
+}
+
+.legal-subheading {
+  @apply text-black dark:text-white font-semibold;
+  font-family: "Baskervville", "Georgia", serif;
+}
+
+.legal-text {
+  @apply text-black dark:text-white;
+  font-family: "Montserrat", serif;
+}
+
+.legal-text-muted {
+  @apply text-black/80 dark:text-white/80;
+}
+
+/* Section Dividers */
+.legal-divider {
+  @apply w-24 h-1 bg-amber-700 dark:bg-amber-800 mx-auto;
+}
+
+/* Enhanced Legal Professional Layout */
+.legal-hero-bg {
+  background: linear-gradient(135deg,
+    hsl(var(--legal-cream)) 0%,
+    hsl(var(--legal-beige)) 25%,
+    hsl(var(--legal-warm-white)) 50%,
+    hsl(var(--legal-beige)) 75%,
+    hsl(var(--legal-cream)) 100%
+  );
+}
+
+.legal-section-alternate {
+  @apply bg-amber-50/50 dark:bg-amber-900/10;
+}
+
+/* Professional Shadow Effects */
+.legal-shadow {
+  @apply shadow-lg shadow-amber-100 dark:shadow-amber-900/20;
+}
+
+.legal-shadow-lg {
+  box-shadow: 0 20px 25px -5px rgba(139, 69, 19, 0.15), 0 10px 10px -5px rgba(139, 69, 19, 0.1);
+}
+
+/* Justice Scale Animation */
+@keyframes gentle-sway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+.table-legal tr:hover {
+  background-color: rgba(232, 221, 209, 0.5);
+}
+
+/* Modal and overlay styles */
+.modal-overlay-legal {
+  background-color: rgba(42, 42, 42, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content-legal {
+  background-color: var(--legal-bg-primary);
+  border: 1px solid var(--legal-border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(139, 69, 19, 0.08);
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
