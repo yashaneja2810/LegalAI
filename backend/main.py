@@ -20,7 +20,13 @@ app = FastAPI(title="Legal Document AI Backend")
 # Allow CORS for frontend - MUST be at the top
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://legal-ai-gules.vercel.app", "http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "https://legal-ai-gules.vercel.app",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",  # Next.js default port
+        "http://127.0.0.1:3000"   # Alternative localhost
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -146,6 +152,8 @@ async def upload_doc(user_id: str = Form(...), file: UploadFile = File(...)):
 @app.get("/docs")
 def list_docs(user_id: str):
     return {"docs": user_docs.get(user_id, [])}
+
+
 
 @app.post("/summarize")
 async def summarize(doc_id: str = Form(...), user_id: str = Form(...)):
