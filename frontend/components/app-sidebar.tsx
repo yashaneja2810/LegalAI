@@ -89,8 +89,8 @@ const navigationItems = [
     description: "Track deadlines & alerts",
   },
   {
-    title: "AI Automation",
-    url: "/automation",
+    title: "Juris",
+    url: "/juris",
     icon: Bot,
     description: "Chat-based legal help",
   },

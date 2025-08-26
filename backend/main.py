@@ -20,7 +20,13 @@ app = FastAPI(title="Legal Document AI Backend")
 # Allow CORS for frontend - MUST be at the top
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://legal-ai-gules.vercel.app", "http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "https://legal-ai-gules.vercel.app",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",  # Next.js default port
+        "http://127.0.0.1:3000"   # Alternative localhost
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]

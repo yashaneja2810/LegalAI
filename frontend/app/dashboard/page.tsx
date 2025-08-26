@@ -107,7 +107,7 @@ export default function DashboardPage() {
       icon: MessageCircle,
       color: "text-blue-600",
       bgColor: "bg-blue-50",
-      action: () => router.push("/automation"),
+      action: () => router.push("/juris"),
     },
     {
       title: "Generate Document",
