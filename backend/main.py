@@ -206,6 +206,36 @@ async def chat(doc_id: str = Form(...), user_id: str = Form(...), question: str 
             matched_chunks.append({'text': chunk.strip(), 'page': 1})
     return {"answer": answer, "matched_chunks": matched_chunks}
 
+@app.post("/suggest_questions")
+async def suggest_questions(doc_id: str = Form(...), user_id: str = Form(...)):
+    try:
+        docs = user_docs.get(user_id, [])
+        doc = next((d for d in docs if d['doc_id'] == doc_id), None)
+        if not doc:
+            raise HTTPException(status_code=404, detail="Document not found.")
+        text = doc.get('extracted_text', '')
+        if not text:
+            raise HTTPException(status_code=400, detail="No extracted text available for this document.")
+        # Use Gemini to generate 5 relevant questions
+        prompt = (
+            "You are a legal document expert. Given the following document, generate 5 highly relevant, practical questions "
+            "a user might want to ask about this document. Focus on legal terms, obligations, risks, deadlines, and key points. "
+            "Return only the questions as a numbered list.\n\nDocument:\n" + text
+        )
+        from gemini_utils import gemini_summarize
+        # Use gemini_summarize for question generation (same async interface)
+        questions_text = await gemini_summarize(prompt)
+        # Parse numbered list into array
+        import re
+        questions = re.findall(r'\d+\.\s*(.+)', questions_text)
+        if not questions:
+            # fallback: split by lines
+            questions = [q.strip('-*• ') for q in questions_text.splitlines() if q.strip()]
+        return {"questions": questions[:5]}
+    except Exception as e:
+        print(f"Error in suggest_questions endpoint: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))

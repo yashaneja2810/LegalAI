@@ -50,12 +50,12 @@ export default function HowItWorksSection() {
   ];
 
   return (
-    <section className="py-16 bg-[#F8F3EE]">
+    <section className="py-16 bg-[color:var(--legal-bg-primary)]">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
           <h2
-            className={`text-3xl md:text-4xl lg:text-5xl font-light text-[#2A2A2A] mb-8 tracking-wide leading-tight ${baskervville.className}`}
+            className={`text-3xl md:text-4xl lg:text-5xl font-light text-[color:var(--legal-secondary)] mb-8 tracking-wide leading-tight ${baskervville.className}`}
           >
             YOUR TRUSTED LEGAL & ACCOUNTING PARTNERS
           </h2>

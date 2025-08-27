@@ -1,39 +1,22 @@
-// layout.tsx
-import type React from "react"
-import type { Metadata } from "next"
-import { Baskervville, Montserrat} from "next/font/google"
-import "./globals.css"
-import { LayoutWrapper } from "@/components/layout-wrapper"
+import './globals.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-const baskervville = Baskervville({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["italic", "normal"],
-  variable: "--font-baskervville",
-});
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["italic", "normal"],
-  variable: "--font-montserrat",
-});
+const inter = Inter({ subsets: ['latin'] });
+
 export const metadata: Metadata = {
-  title: "LegalEase - AI-Powered Legal Compliance for Indian Startups",
-  description:
-    "Automate your legal workflows with AI. Draft contracts, track compliance, and handle payments - all in one platform built for Indian startups and SMEs.",
-    generator: 'v0.dev'
-}
+  title: 'LexisMind - Professional Legal Document Intelligence',
+  description: 'Advanced AI-powered legal document analysis and interpretation platform for professionals and individuals',
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="light">
-      <body >
-            <LayoutWrapper>{children}</LayoutWrapper>
-      </body>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
     </html>
-  )
+  );
 }
